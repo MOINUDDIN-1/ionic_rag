@@ -1,0 +1,5 @@
+ionic build
+npx cap sync android
+
+---
+adb reverse tcp:8000 tcp:8000
