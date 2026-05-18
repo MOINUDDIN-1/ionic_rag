@@ -1,5 +1,6 @@
 ionic build
 npx cap sync android
 
+ionic cap run android -l --external
 ---
 adb reverse tcp:8000 tcp:8000

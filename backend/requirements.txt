@@ -44,7 +44,6 @@ MarkupSafe==3.0.3
 mdurl==0.1.2
 openai==2.37.0
 orjson==3.11.9
-packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1777103621/work
 pydantic==2.13.4
 pydantic-extra-types==2.11.1
 pydantic-settings==2.14.1
