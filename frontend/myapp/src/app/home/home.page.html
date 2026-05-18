@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="light">
+    <ion-title>
+      AI Chat
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="chat-content">
+
+  <div class="chat-container">
+
+    <div *ngFor="let msg of messages" class="message-wrapper" [ngClass]="msg.role">
+      <div class="message-bubble">
+        {{ msg.text }}
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+
+    <div class="input-container">
+
+      <ion-input [(ngModel)]="userInput" placeholder="Ask something..." class="chat-input">
+      </ion-input>
+
+      <ion-button shape="round" (click)="sendMessage()">
+        Send
+      </ion-button>
+
+    </div>
+
+  </ion-toolbar>
+</ion-footer>
