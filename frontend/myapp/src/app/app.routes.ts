@@ -1,6 +1,10 @@
-import { Routes } from '@angular/router';
+import {
+  Routes,
+} from '@angular/router';
 
-import { authGuard } from './core/guards/auth.guard';
+import {
+  authGuard,
+} from './core/guards/auth.guard';
 
 
 export const routes: Routes = [
@@ -12,7 +16,7 @@ export const routes: Routes = [
 
     loadComponent: () =>
       import('./pages/home/home.page').then(
-        (m) => m.HomePage
+        (module) => module.HomePage,
       ),
   },
 
@@ -21,18 +25,7 @@ export const routes: Routes = [
 
     loadComponent: () =>
       import('./pages/login/login.page').then(
-        (m) => m.LoginPage
-      ),
-  },
-
-  {
-    path: 'chatbot',
-
-    canActivate: [authGuard],
-
-    loadComponent: () =>
-      import('./pages/chatbot/chatbot.page').then(
-        (m) => m.ChatbotPage
+        (module) => module.LoginPage,
       ),
   },
 
@@ -43,7 +36,18 @@ export const routes: Routes = [
 
     loadComponent: () =>
       import('./pages/documents/documents.page').then(
-        (m) => m.DocumentsPage
+        (module) => module.DocumentsPage,
+      ),
+  },
+
+  {
+    path: 'chatbot',
+
+    canActivate: [authGuard],
+
+    loadComponent: () =>
+      import('./pages/chatbot/chatbot.page').then(
+        (module) => module.ChatbotPage,
       ),
   },
 

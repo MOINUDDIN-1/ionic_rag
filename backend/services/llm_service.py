@@ -33,7 +33,7 @@ llm = ChatGroq(
 # PROMPT
 # =========================
 
-RAG_PROMPT_TEMPLATE = """
+RAG_PROMPT_TEMPLATE1 = """
 You are a helpful AI assistant.
 
 Answer the user's question ONLY using:
@@ -43,6 +43,19 @@ Answer the user's question ONLY using:
 If the answer is not available,
 say:
 "I could not find the answer in the provided documents."
+
+Retrieved Context:
+{context}
+"""
+RAG_PROMPT_TEMPLATE = """
+You are a helpful AI assistant.
+
+Answer the user's question ONLY using:
+1. Retrieved document context
+2. Previous conversation history
+
+If the answer is not available,
+then generate and respond from your knowledge what u have
 
 Retrieved Context:
 {context}

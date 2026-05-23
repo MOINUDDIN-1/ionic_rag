@@ -7,7 +7,6 @@ import {
 import {
     IonButton,
     IonContent,
-    IonText,
 } from '@ionic/angular/standalone';
 
 
@@ -23,7 +22,6 @@ import {
     imports: [
         IonContent,
         IonButton,
-        IonText,
     ],
 })
 export class HomePage {

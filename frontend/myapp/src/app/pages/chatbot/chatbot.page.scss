@@ -1,0 +1,351 @@
+:host {
+    height: 100%;
+}
+
+
+/* ========================= */
+/* SPLIT PANE */
+/* ========================= */
+
+ion-split-pane {
+    height: 100%;
+}
+
+
+/* ========================= */
+/* SIDEBAR */
+/* ========================= */
+
+ion-menu {
+    --width: 320px;
+
+    --background: #111827;
+}
+
+ion-menu::part(backdrop) {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+
+.sidebar-actions {
+    padding: 16px;
+}
+
+
+.sidebar-footer {
+    padding: 16px;
+
+    border-top: 1px solid #1e293b;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #111827;
+
+    color: white;
+}
+
+
+.user-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.user-id {
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.user-email {
+    font-size: 11px;
+
+    opacity: 0.7;
+}
+
+
+.conversation-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    width: 100%;
+
+    overflow: hidden;
+}
+
+
+.conversation-title {
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+
+.conversation-preview {
+    opacity: 0.6;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    max-width: 220px;
+
+    display: block;
+
+    font-size: 11px;
+}
+
+
+/* ========================= */
+/* CHAT CONTAINER */
+/* ========================= */
+
+.chat-container {
+    height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: #0f172a;
+}
+
+
+.messages-content {
+    flex: 1;
+
+    --background: #0f172a;
+
+    overflow-y: auto;
+}
+
+
+.messages-container {
+    max-width: 900px;
+
+    width: 100%;
+
+    margin: auto;
+
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+/* ========================= */
+/* MESSAGES */
+/* ========================= */
+
+.message-wrapper {
+    display: flex;
+
+    justify-content: flex-start;
+}
+
+
+.user-wrapper {
+    justify-content: flex-end;
+}
+
+
+.message-bubble {
+    max-width: 75%;
+
+    padding: 16px;
+
+    border-radius: 18px;
+
+    line-height: 1.6;
+
+    position: relative;
+}
+
+
+.user-bubble {
+    background: #2563eb;
+
+    color: white;
+}
+
+
+.assistant-bubble {
+    background: #1e293b;
+
+    color: white;
+}
+
+
+.message-content {
+    white-space: pre-wrap;
+}
+
+
+.sources {
+    margin-top: 12px;
+
+    font-size: 12px;
+
+    opacity: 0.75;
+}
+
+
+/* ========================= */
+/* TYPING LOADER */
+/* ========================= */
+
+.typing-loader {
+    display: flex;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+.typing-loader ion-spinner {
+    width: 28px;
+
+    height: 28px;
+
+    color: white;
+}
+
+
+/* ========================= */
+/* INPUT AREA */
+/* ========================= */
+
+.input-container {
+    padding: 16px;
+
+    border-top: 1px solid #1e293b;
+
+    background: #0f172a;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 12px;
+}
+
+
+ion-textarea {
+    flex: 1;
+
+    --background: #1e293b;
+
+    --color: white;
+
+    --placeholder-color: #94a3b8;
+
+    border-radius: 18px;
+
+    padding: 10px 14px;
+
+    min-height: 52px;
+}
+
+
+.input-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* ========================= */
+/* ICON BUTTONS */
+/* ========================= */
+
+ion-button {
+    --color: white;
+}
+
+
+.message-bubble ion-button {
+    --color: white;
+
+    --background: transparent;
+
+    margin-top: 8px;
+
+    min-width: 36px;
+
+    height: 36px;
+}
+
+
+.message-bubble ion-icon {
+    color: white !important;
+
+    font-size: 22px !important;
+
+    display: block !important;
+
+    opacity: 1 !important;
+}
+
+
+/* ========================= */
+/* AUDIO + STT SPINNERS */
+/* ========================= */
+
+.message-bubble ion-spinner {
+    width: 18px;
+
+    height: 18px;
+
+    color: white;
+}
+
+
+.input-actions ion-spinner {
+    width: 22px;
+
+    height: 22px;
+
+    color: white;
+}
+
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    .message-bubble {
+        max-width: 90%;
+    }
+
+    .messages-container {
+        padding: 16px;
+    }
+
+    ion-menu {
+        --width: 280px;
+    }
+}

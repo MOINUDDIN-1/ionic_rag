@@ -1,0 +1,277 @@
+<ion-split-pane contentId="main-content">
+
+    <!-- ========================= -->
+    <!-- SIDEBAR -->
+    <!-- ========================= -->
+
+    <ion-menu contentId="main-content" type="overlay">
+
+        <ion-header>
+
+            <ion-toolbar>
+
+                <ion-title>
+                    Chats
+                </ion-title>
+
+                <ion-buttons slot="end">
+
+                    <ion-menu-button>
+                    </ion-menu-button>
+
+                </ion-buttons>
+
+            </ion-toolbar>
+
+        </ion-header>
+
+
+
+        <ion-content class="messages-content">
+
+            <!-- NEW CHAT -->
+
+            <div class="sidebar-actions">
+
+                <ion-button expand="block" (click)="createConversation()">
+
+                    <ion-icon name="add-outline">
+                    </ion-icon>
+
+                    New Chat
+
+                </ion-button>
+
+            </div>
+
+
+            <!-- CONVERSATIONS -->
+
+            <ion-list>
+
+                <ion-item button *ngFor="let conversation of conversations" (click)="openConversation(conversation.id)">
+
+                    <div class="conversation-item">
+
+                        <div class="conversation-title">
+
+                            {{ conversation.title }}
+
+                        </div>
+
+                        <small class="conversation-preview">
+
+                            {{ conversation.last_message | slice:0:40 }}...
+
+                        </small>
+
+                    </div>
+
+
+                    <ion-button fill="clear" color="danger" (click)="deleteConversation(conversation.id)">
+
+                        <ion-icon name="trash-outline">
+                        </ion-icon>
+
+                    </ion-button>
+
+                </ion-item>
+
+            </ion-list>
+
+        </ion-content>
+
+
+
+        <!-- USER FOOTER -->
+
+        <div class="sidebar-footer">
+
+            <div class="user-info">
+
+                <div class="user-id">
+
+                    {{ userId }}
+
+                </div>
+
+                <small class="user-email">
+
+                    {{ userEmail }}
+
+                </small>
+
+            </div>
+
+
+            <ion-button fill="clear" color="danger" (click)="logout()">
+
+                <ion-icon name="log-out-outline">
+                </ion-icon>
+
+            </ion-button>
+
+        </div>
+
+    </ion-menu>
+
+
+
+    <!-- ========================= -->
+    <!-- MAIN CHAT -->
+    <!-- ========================= -->
+
+    <div class="chat-container" id="main-content">
+
+        <!-- TOP BAR -->
+
+        <ion-header>
+
+            <ion-toolbar>
+
+                <ion-buttons slot="start">
+
+                    <ion-menu-button>
+                    </ion-menu-button>
+
+                </ion-buttons>
+
+
+                <ion-title>
+
+                    Ionic RAG Chatbot
+
+                </ion-title>
+
+            </ion-toolbar>
+
+        </ion-header>
+
+
+
+        <!-- MESSAGES -->
+
+        <ion-content class="messages-content">
+
+            <div class="messages-container">
+
+                <div *ngFor="let message of messages" class="message-wrapper"
+                    [class.user-wrapper]="message.role === 'user'">
+
+                    <div class="message-bubble" [class.user-bubble]="message.role === 'user'"
+                        [class.assistant-bubble]="message.role === 'assistant'">
+
+                        <!-- MESSAGE -->
+
+                        <div class="message-content">
+
+                            {{ message.content }}
+
+                        </div>
+
+
+                        <!-- SOURCES -->
+
+                        <div class="sources" *ngIf="message.sources?.length">
+
+                            Sources:
+                            {{ message.sources.join(', ') }}
+
+                        </div>
+
+
+                        <!-- AUDIO BUTTON -->
+
+                        <ion-button *ngIf="message.role === 'assistant'" fill="clear" size="small"
+                            (click)="toggleAudio(message.content)">
+
+                            <!-- TTS SPINNER -->
+
+                            <ion-spinner *ngIf="loadingAudioText === message.content" name="dots">
+
+                            </ion-spinner>
+
+
+                            <!-- PLAY/PAUSE -->
+
+                            <ion-icon *ngIf="loadingAudioText !== message.content" [name]="currentlyPlayingText === message.content
+                                ? 'pause-outline'
+                                : 'volume-high-outline'">
+
+                            </ion-icon>
+
+                        </ion-button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MAIN CHAT SPINNER -->
+
+                <div class="typing-loader" *ngIf="isSending">
+
+                    <ion-spinner>
+                    </ion-spinner>
+
+                </div>
+
+            </div>
+
+        </ion-content>
+
+
+
+        <!-- INPUT AREA -->
+
+        <div class="input-container">
+
+            <ion-textarea [(ngModel)]="prompt" autoGrow="true" placeholder="Message chatbot...">
+
+            </ion-textarea>
+
+
+
+            <div class="input-actions">
+
+                <!-- MIC -->
+
+                <ion-button fill="clear" (click)="toggleRecording()">
+
+                    <!-- STT SPINNER -->
+
+                    <ion-spinner *ngIf="isSpeechProcessing" name="dots">
+
+                    </ion-spinner>
+
+
+                    <!-- MIC ICON -->
+
+                    <ion-icon *ngIf="!isSpeechProcessing" [name]="isRecording
+                        ? 'stop-outline'
+                        : 'mic-outline'">
+
+                    </ion-icon>
+
+                </ion-button>
+
+
+
+                <!-- SEND -->
+
+                <ion-button (click)="sendMessage()" [disabled]="isSending">
+
+                    <ion-icon name="send-outline">
+
+                    </ion-icon>
+
+                </ion-button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</ion-split-pane>
