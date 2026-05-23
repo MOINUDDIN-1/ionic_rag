@@ -39,6 +39,7 @@ import {
     logOutOutline,
     refreshOutline,
     trashOutline,
+    homeOutline,
 } from 'ionicons/icons';
 
 import {
@@ -52,6 +53,7 @@ import {
 
 @Component({
     selector: 'app-documents',
+
 
     templateUrl: './documents.page.html',
 
@@ -110,6 +112,7 @@ export class DocumentsPage implements OnInit {
             logOutOutline,
             documentOutline,
             chatbubbleEllipsesOutline,
+            homeOutline,
         });
     }
 
@@ -148,7 +151,12 @@ export class DocumentsPage implements OnInit {
 
         }, 3000);
     }
+    goHome(): void {
 
+        this.router.navigate([
+            '/',
+        ]);
+    }
 
     clearMessages(): void {
 

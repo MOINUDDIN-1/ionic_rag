@@ -29,6 +29,7 @@ import {
   pauseOutline,
   trashOutline,
   logOutOutline,
+  homeOutline,
 } from 'ionicons/icons';
 
 import {
@@ -151,6 +152,7 @@ export class ChatbotPage implements OnInit {
       'trash-outline': trashOutline,
 
       'log-out-outline': logOutOutline,
+      'home-outline': homeOutline,
     });
   }
 
@@ -466,6 +468,12 @@ export class ChatbotPage implements OnInit {
 
     this.router.navigate([
       '/login',
+    ]);
+  }
+  goHome(): void {
+
+    this.router.navigate([
+      '/',
     ]);
   }
 }

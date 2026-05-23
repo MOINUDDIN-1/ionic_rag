@@ -8,18 +8,30 @@
 
         <ion-buttons slot="end">
 
-            <ion-button (click)="openChatbot()">
-                <ion-icon name="chatbubble-ellipses-outline">
+            <ion-button fill="clear" (click)="goHome()">
+
+                <ion-icon name="home-outline">
                 </ion-icon>
+
             </ion-button>
 
-            <ion-button color="danger" (click)="logout()">
+
+            <ion-button fill="clear" (click)="openChatbot()">
+
+                <ion-icon name="chatbubble-ellipses-outline">
+                </ion-icon>
+
+            </ion-button>
+
+
+            <ion-button color="danger" fill="clear" (click)="logout()">
+
                 <ion-icon name="log-out-outline">
                 </ion-icon>
+
             </ion-button>
 
         </ion-buttons>
-
     </ion-toolbar>
 
 </ion-header>
