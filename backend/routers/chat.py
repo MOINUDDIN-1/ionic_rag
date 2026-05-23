@@ -38,6 +38,7 @@ async def chat(
     try:
         result = rag_chat(
             query=request.message,
+            history=request.history,
             k=request.k,
         )
 

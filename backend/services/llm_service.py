@@ -1,7 +1,10 @@
 # services/llm_service.py
 
-from langchain_core.prompts import ChatPromptTemplate
-
+from langchain_core.prompts import (
+    ChatPromptTemplate,
+    MessagesPlaceholder,
+)
+from langchain_core.tracers.stdout import ConsoleCallbackHandler
 from langchain_groq import ChatGroq
 
 from config.settings import (
@@ -9,21 +12,14 @@ from config.settings import (
     yaml_settings,
 )
 
-
-# =========================
-# LLM
-# =========================
-
+callback_handler = ConsoleCallbackHandler()
 llm = ChatGroq(
     model=yaml_settings.llm.model,
     temperature=yaml_settings.llm.temperature,
     api_key=env_settings.GROQ_API_KEY,
+    callbacks=[callback_handler],
 )
 
-
-# =========================
-# PROMPT TEMPLATE
-# =========================
 
 RAG_PROMPT_TEMPLATE = """
 You are a helpful AI assistant.
@@ -36,32 +32,39 @@ say:
 
 Context:
 {context}
-
-Question:
-{question}
 """
 
 
-prompt_template = ChatPromptTemplate.from_template(RAG_PROMPT_TEMPLATE)
-
-
-# =========================
-# GENERATE RESPONSE
-# =========================
+rag_prompt_template = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            RAG_PROMPT_TEMPLATE,
+        ),
+        MessagesPlaceholder(variable_name="history"),
+        (
+            "human",
+            "{question}",
+        ),
+    ]
+)
 
 
 def generate_chat_response(
     question: str,
     context: str,
+    history,
 ) -> str:
 
-    chain = prompt_template | llm
+    chain = rag_prompt_template | llm
 
     response = chain.invoke(
         {
             "question": question,
             "context": context,
-        }
+            "history": history,
+        },
+        config={"callbacks": [callback_handler]},
     )
 
     return response.content
@@ -87,7 +90,8 @@ def summarize_text(
     response = chain.invoke(
         {
             "text": text,
-        }
+        },
+        config={"callbacks": [callback_handler]},
     )
 
     return response.content

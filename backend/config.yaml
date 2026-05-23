@@ -16,6 +16,11 @@ rag:
   chunk_overlap: 200
   top_k: 4
 
+memory:
+  enabled: true
+  max_history_messages: 3
+  max_message_chars: 2000
+  
 paths:
   documents_path: "./rag/documents"
   faiss_index_path: "./rag/faiss_index"

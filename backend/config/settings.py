@@ -56,6 +56,12 @@ class RAGConfig(BaseModel):
     top_k: int = 4
 
 
+class MemoryConfig(BaseModel):
+    enabled: bool = True
+    max_history_messages: int = 3
+    max_message_chars: int = 2000
+
+
 class PathsConfig(BaseModel):
     documents_path: str
     faiss_index_path: str
@@ -75,6 +81,7 @@ class YAMLSettings(BaseModel):
     rag: RAGConfig
     paths: PathsConfig
     app: AppConfig
+    memory: MemoryConfig
 
 
 # =========================

@@ -32,6 +32,17 @@ curl -X POST "http://127.0.0.1:8000/api/v1/rag/search" \
 curl -X POST "http://127.0.0.1:8000/api/v1/chat" \
   -H "Content-Type: application/json" \
   -d '{
-    "message": "Hello, what is this document about",
+    "session_id": "chat_001",
+    "message": "What did I just ask you?",
+    "history": [
+      {
+        "role": "user",
+        "content": "Tell me about the document."
+      },
+      {
+        "role": "assistant",
+        "content": "The document explains how to create PDF documents using LaTeX."
+      }
+    ],
     "k": 3
   }'
