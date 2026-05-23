@@ -9,9 +9,9 @@ class ChatMessage(BaseModel):
 
 
 class ChatRequest(BaseModel):
+    conversation_id: str
+    user_id: str
     message: str
-    session_id: str
-    history: list[ChatMessage] = []
     k: int = 3
 
 
@@ -34,3 +34,7 @@ class AudioRequest(BaseModel):
 
 class AudioResponse(BaseModel):
     audio_url: str
+
+
+class SpeechToTextResponse(BaseModel):
+    text: str

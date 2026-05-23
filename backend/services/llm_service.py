@@ -12,17 +12,22 @@ from config.settings import (
     yaml_settings,
 )
 
+from langchain_core.tracers.stdout import (
+    ConsoleCallbackHandler,
+)
 
 # =========================
 # LLM
 # =========================
 
+callback_handler = ConsoleCallbackHandler()
+
 llm = ChatGroq(
     model=yaml_settings.llm.model,
     temperature=yaml_settings.llm.temperature,
     api_key=env_settings.GROQ_API_KEY,
+    callbacks=[callback_handler],
 )
-
 
 # =========================
 # PROMPT

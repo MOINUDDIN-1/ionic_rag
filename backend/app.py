@@ -7,6 +7,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 
 from config.settings import yaml_settings
+from database.database import (
+    Base,
+    engine,
+)
 
 from routers import (
     API_PREFIX,
@@ -21,6 +25,10 @@ from routers import (
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
     print("===================================")
     print("Ionic RAG Chatbot API Started")
     print(f"Environment: {yaml_settings.app.env}")
