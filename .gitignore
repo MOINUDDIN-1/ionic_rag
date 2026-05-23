@@ -40,3 +40,6 @@ coverage/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/backend/rag/documents/*
+/backend/rag/faiss_index/*
+temp_audio/

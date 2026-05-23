@@ -4,3 +4,81 @@ npx cap sync android
 ionic cap run android -l --external
 ---
 adb reverse tcp:8000 tcp:8000
+
+-------------
+
+
+src/
+├── app/
+│   ├── core/
+│   │   ├── guards/
+│   │   │   └── auth.guard.ts
+│   │   │
+│   │   ├── interceptors/
+│   │   │   └── auth.interceptor.ts
+│   │   │
+│   │   └── services/
+│   │       ├── api.service.ts
+│   │       ├── auth.service.ts
+│   │       ├── chat.service.ts
+│   │       ├── document.service.ts
+│   │       └── storage.service.ts
+│   │
+│   ├── pages/
+│   │   ├── login/
+│   │   │   ├── login.page.html
+│   │   │   ├── login.page.scss
+│   │   │   └── login.page.ts
+│   │   │
+│   │   ├── home/
+│   │   │   ├── home.page.html
+│   │   │   ├── home.page.scss
+│   │   │   └── home.page.ts
+│   │   │
+│   │   ├── chatbot/
+│   │   │   ├── chatbot.page.html
+│   │   │   ├── chatbot.page.scss
+│   │   │   └── chatbot.page.ts
+│   │   │
+│   │   └── documents/
+│   │       ├── documents.page.html
+│   │       ├── documents.page.scss
+│   │       └── documents.page.ts
+│   │
+│   ├── shared/
+│   │   └── components/
+│   │       ├── chat-message/
+│   │       │   ├── chat-message.component.html
+│   │       │   ├── chat-message.component.scss
+│   │       │   └── chat-message.component.ts
+│   │       │
+│   │       ├── sidebar/
+│   │       │   ├── sidebar.component.html
+│   │       │   ├── sidebar.component.scss
+│   │       │   └── sidebar.component.ts
+│   │       │
+│   │       └── upload-box/
+│   │           ├── upload-box.component.html
+│   │           ├── upload-box.component.scss
+│   │           └── upload-box.component.ts
+│   │
+│   ├── app.component.html
+│   ├── app.component.scss
+│   ├── app.component.ts
+│   └── app.routes.ts
+│
+├── assets/
+│   ├── icon/
+│   └── images/
+│
+├── environments/
+│   ├── environment.ts
+│   └── environment.prod.ts
+│
+├── theme/
+│   └── variables.scss
+│
+├── global.scss
+├── index.html
+├── main.ts
+└── polyfills.ts

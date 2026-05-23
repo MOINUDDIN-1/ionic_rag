@@ -1,14 +1,55 @@
 # app.py
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from fastapi.responses import HTMLResponse
 
-from llm_service import generate_chat_response
+from config.settings import yaml_settings
+from database.database import (
+    Base,
+    engine,
+)
 
-app = FastAPI(title="Ionic RAG Chatbot API")
+from routers import (
+    API_PREFIX,
+    ALL_ROUTERS,
+)
 
-# CORS for Ionic Angular frontend
+
+# =========================
+# LIFESPAN
+# =========================
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+
+    print("===================================")
+    print("Ionic RAG Chatbot API Started")
+    print(f"Environment: {yaml_settings.app.env}")
+    print("===================================")
+
+    yield
+
+    print("Shutting down API...")
+
+
+# =========================
+# APP
+# =========================
+
+app = FastAPI(title="Ionic RAG Chatbot API", version="0.0.1", lifespan=lifespan)
+
+
+# =========================
+# CORS
+# =========================
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # change in production
@@ -18,21 +59,28 @@ app.add_middleware(
 )
 
 
-class ChatRequest(BaseModel):
-    message: str
+# =========================
+# HOME
+# =========================
 
 
-class ChatResponse(BaseModel):
-    response: str
+@app.get("/", response_class=HTMLResponse)
+async def home():
+    return """
+    <html>
+        <head>
+            <title>Ionic RAG Chatbot API</title>
+        </head>
+        <body>
+            <h1>Ionic RAG Chatbot API Running</h1>
+        </body>
+    </html>
+    """
 
 
-@app.get("/")
-async def health_check():
-    return {"status": "running"}
+# =========================
+# ROUTERS
+# =========================
 
-
-@app.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest):
-    response = generate_chat_response(request.message)
-
-    return ChatResponse(response=response)
+for router in ALL_ROUTERS:
+    app.include_router(router, prefix=API_PREFIX)

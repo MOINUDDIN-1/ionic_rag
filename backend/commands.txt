@@ -1,0 +1,91 @@
+curl -X POST "http://127.0.0.1:8000/api/v1/documents/upload" \
+  -F "files=@/home/moin/Downloads/Sample-pdf (Copy).pdf" \
+  -F "files=@/home/moin/Downloads/Sample-pdf (Copy 2).pdf" \
+  -F "files=@/home/moin/Downloads/Sample-pdf.pdf"
+
+
+curl -X DELETE "http://127.0.0.1:8000/api/v1/documents" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filenames": [
+      "Sample-pdf.pdf"
+    ]
+  }'
+
+
+===================
+
+curl "http://127.0.0.1:8000/api/v1/rag/status"
+
+curl -X POST "http://127.0.0.1:8000/api/v1/rag/reindex"
+
+curl -X POST "http://127.0.0.1:8000/api/v1/rag/search" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "king of jungle",
+    "k": 3
+  }'
+
+===================
+
+
+curl -X POST "http://127.0.0.1:8000/api/v1/chat" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session_id": "chat_001",
+    "message": "What did I just ask you?",
+    "history": [
+      {
+        "role": "user",
+        "content": "Tell me about the document."
+      },
+      {
+        "role": "assistant",
+        "content": "The document explains how to create PDF documents using LaTeX."
+      }
+    ],
+    "k": 3
+  }'
+
+
+  curl -X GET "http://127.0.0.1:8000/api/v1/rag/documents"
+
+
+curl -X POST \
+"http://127.0.0.1:8000/api/v1/chat/speech-to-text" \
+-F "audio=@/home/moin/Downloads/ENG_UK_F_AlexiaK.mp3"
+
+=======================
+
+# Create Conversation
+
+```bash id="8m2wra"
+curl -X POST \
+"http://127.0.0.1:8000/api/v1/conversations?user_id=moin"
+```
+
+---
+
+# Get Conversations
+
+curl -X GET \
+"http://127.0.0.1:8000/api/v1/conversations?user_id=moin"
+
+
+curl -X POST \
+"http://127.0.0.1:8000/api/v1/chat" \
+-H "Content-Type: application/json" \
+-d '{
+  "conversation_id": "3c309b2e29c54855bf0520a9b40538d3",
+  "user_id": "moin",
+  "message": "What is this document about?",
+  "k": 3
+}'
+
+
+curl -X GET \
+"http://127.0.0.1:8000/api/v1/conversations/3c309b2e29c54855bf0520a9b40538d3?user_id=moin"
+
+
+curl -X DELETE \
+"http://127.0.0.1:8000/api/v1/conversations/3c309b2e29c54855bf0520a9b40538d3?user_id=moin"

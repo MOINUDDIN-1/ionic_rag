@@ -1,0 +1,39 @@
+<ion-content class="login-page">
+
+    <div class="container">
+
+        <div class="login-card">
+
+            <h1>Ionic RAG Chatbot</h1>
+
+            <ion-item>
+                <ion-label position="stacked">
+                    User ID or Email
+                </ion-label>
+
+                <ion-input [(ngModel)]="loginId" type="email">
+                </ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">
+                    Password
+                </ion-label>
+
+                <ion-input [(ngModel)]="password" type="password">
+                </ion-input>
+            </ion-item>
+
+            <ion-button expand="block" (click)="login()">
+                Login
+            </ion-button>
+
+            <ion-text color="danger" *ngIf="errorMessage">
+                <p class="error-message">{{ errorMessage }}</p>
+            </ion-text>
+
+        </div>
+
+    </div>
+
+</ion-content>
