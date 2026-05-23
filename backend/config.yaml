@@ -1,0 +1,27 @@
+llm:
+  provider: "groq"
+  model: "llama-3.1-8b-instant"
+  temperature: 0.7
+
+embedding:
+  provider: "pinecone"
+  model: "multilingual-e5-large"
+
+vector_db:
+  provider: "faiss"
+  path: "./rag/faiss_index"
+
+rag:
+  chunk_size: 1000
+  chunk_overlap: 200
+  top_k: 4
+
+paths:
+  documents_path: "./rag/documents"
+  faiss_index_path: "./rag/faiss_index"
+
+app:
+  env: "development"
+  debug: true
+  host: "0.0.0.0"
+  port: 8000

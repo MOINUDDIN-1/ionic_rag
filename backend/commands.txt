@@ -1,0 +1,37 @@
+curl -X POST "http://127.0.0.1:8000/api/v1/documents/upload" \
+  -F "files=@/home/moin/Downloads/Sample-pdf (Copy).pdf" \
+  -F "files=@/home/moin/Downloads/Sample-pdf (Copy 2).pdf" \
+  -F "files=@/home/moin/Downloads/Sample-pdf.pdf"
+
+
+curl -X DELETE "http://127.0.0.1:8000/api/v1/documents" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filenames": [
+      "Sample-pdf.pdf"
+    ]
+  }'
+
+
+===================
+
+curl "http://127.0.0.1:8000/api/v1/rag/status"
+
+curl -X POST "http://127.0.0.1:8000/api/v1/rag/reindex"
+
+curl -X POST "http://127.0.0.1:8000/api/v1/rag/search" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "king of jungle",
+    "k": 3
+  }'
+
+===================
+
+
+curl -X POST "http://127.0.0.1:8000/api/v1/chat" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "Hello, what is this document about",
+    "k": 3
+  }'
