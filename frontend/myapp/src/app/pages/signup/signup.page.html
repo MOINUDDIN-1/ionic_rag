@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>StudyMate Sign Up</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="signup-content">
+  <div class="signup-container">
+    <div class="welcome-section">
+      <h1>StudyMate</h1>
+      <p>Join Our Learning Community</p>
+    </div>
+
+    <ion-card class="signup-card">
+      <ion-card-header>
+        <ion-card-title>Create Account</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Full Name</ion-label>
+          <ion-input 
+            [(ngModel)]="fullName"
+            placeholder="Your name">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input 
+            type="email"
+            [(ngModel)]="email"
+            placeholder="your@email.com">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input 
+            type="password"
+            [(ngModel)]="password"
+            placeholder="Create password">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Confirm Password</ion-label>
+          <ion-input 
+            type="password"
+            [(ngModel)]="confirmPassword"
+            placeholder="Confirm password">
+          </ion-input>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          color="primary"
+          (click)="signup()"
+          [disabled]="isLoading"
+          style="margin-top: 24px;">
+          {{ isLoading ? 'Creating Account...' : 'Sign Up' }}
+        </ion-button>
+
+        <div class="login-link">
+          Already have an account?
+          <a (click)="goToLogin()" style="cursor: pointer; color: #4F46E5;">Log In</a>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

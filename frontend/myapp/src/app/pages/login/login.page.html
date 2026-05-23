@@ -1,0 +1,54 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>StudyMate Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="login-content">
+  <div class="login-container">
+    <div class="welcome-section">
+      <h1>StudyMate</h1>
+      <p>Your AI-Powered Study Companion</p>
+    </div>
+
+    <ion-card class="login-card">
+      <ion-card-header>
+        <ion-card-title>Sign In</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input 
+            type="email"
+            [(ngModel)]="email"
+            placeholder="your@email.com">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Password</ion-label>
+          <ion-input 
+            type="password"
+            [(ngModel)]="password"
+            placeholder="Enter password">
+          </ion-input>
+        </ion-item>
+
+        <ion-button 
+          expand="block" 
+          color="primary"
+          (click)="login()"
+          [disabled]="isLoading"
+          style="margin-top: 24px;">
+          {{ isLoading ? 'Logging in...' : 'Log In' }}
+        </ion-button>
+
+        <div class="signup-link">
+          Don't have an account?
+          <a (click)="goToSignup()" style="cursor: pointer; color: #4F46E5;">Sign Up</a>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

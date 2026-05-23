@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>StudyMate Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <ion-grid class="dashboard-grid">
+    <ion-row>
+      <ion-col sizeMd="6" sizeLg="4" class="card-col">
+        <ion-card class="dashboard-card upload-card" routerLink="/upload">
+          <ion-card-header>
+            <ion-icon name="cloudUploadOutline" class="card-icon"></ion-icon>
+          </ion-card-header>
+          <ion-card-title>Upload PDF</ion-card-title>
+          <ion-card-content>Add study materials</ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col sizeMd="6" sizeLg="4" class="card-col">
+        <ion-card class="dashboard-card chat-card" routerLink="/chat">
+          <ion-card-header>
+            <ion-icon name="chatbubbleOutline" class="card-icon"></ion-icon>
+          </ion-card-header>
+          <ion-card-title>Ask AI</ion-card-title>
+          <ion-card-content>Get instant answers</ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col sizeMd="6" sizeLg="4" class="card-col">
+        <ion-card class="dashboard-card notes-card" routerLink="/chat">
+          <ion-card-header>
+            <ion-icon name="documentOutline" class="card-icon"></ion-icon>
+          </ion-card-header>
+          <ion-card-title>My Notes</ion-card-title>
+          <ion-card-content>View uploaded files</ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col sizeMd="6" sizeLg="4" class="card-col">
+        <ion-card class="dashboard-card profile-card" routerLink="/profile">
+          <ion-card-header>
+            <ion-icon name="personOutline" class="card-icon"></ion-icon>
+          </ion-card-header>
+          <ion-card-title>Profile</ion-card-title>
+          <ion-card-content>Manage your profile</ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

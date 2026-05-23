@@ -1,0 +1,108 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-title>StudyMate RAG Assistant</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showDocuments()">
+        <ion-icon name="documents-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="dark" class="ion-padding chat-content" #messageContainer>
+  <div class="chat-container">
+    
+    <!-- Loop through messages -->
+    @for (msg of messages; track msg.id) {
+      <div class="message-wrapper" [class.user]="msg.role === 'user'">
+        <!-- Profile Avatar -->
+        <ion-avatar class="chat-avatar" [class.user]="msg.role === 'user'">
+          <ion-icon [name]="msg.role === 'user' ? 'person' : 'hardware-chip'"></ion-icon>
+        </ion-avatar>
+
+        <div class="message-body">
+          <!-- RAG Source Documents (Only for AI, if sources exist) -->
+          @if (msg.role === 'bot' && msg.sources && msg.sources.length > 0) {
+            <div class="sources-container">
+              <span class="sources-label">📚 Retrieved Sources:</span>
+              <div class="sources-scroll">
+                @for (source of msg.sources; track source.filename) {
+                  <div class="source-card">
+                    <ion-icon name="document-text-outline"></ion-icon>
+                    <div class="source-info">
+                      <span class="title">{{ source.filename }}</span>
+                      <span class="match">Score: {{ (source.score * 100).toFixed(0) }}%</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- Message Text Bubble -->
+          <div class="bubble" [class.streaming]="msg.isStreaming">
+            <p>{{ msg.text }}</p>
+            @if (msg.isStreaming) {
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            }
+          </div>
+
+          <!-- Source badge -->
+          @if (msg.role === 'bot' && msg.source) {
+            <div class="source-badge">
+              @if (msg.source === 'pdf') {
+                <ion-badge color="primary">📄 From PDF</ion-badge>
+              }
+              @if (msg.source === 'general') {
+                <ion-badge color="secondary">✨ General AI</ion-badge>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- RAG "Thinking" / Retrieval State -->
+    @if (isThinking) {
+      <div class="thinking-wrapper">
+        <ion-avatar class="chat-avatar pulsating">
+          <ion-icon name="hardware-chip"></ion-icon>
+        </ion-avatar>
+        <div class="thinking-box">
+          <div class="searching-text">
+            <ion-spinner name="dots" color="primary"></ion-spinner>
+            <span>Searching your documents & retrieving context...</span>
+          </div>
+          <!-- Skeleton cards to mimic finding docs -->
+          <div class="skeleton-sources">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+          </div>
+        </div>
+      </div>
+    }
+
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar color="dark">
+    <div class="input-container">
+      <ion-textarea 
+        placeholder="Ask your documents anything..." 
+        auto-grow="true" 
+        rows="1" 
+        [(ngModel)]="userInput"
+        (keyup.enter)="sendMessage()"
+        [disabled]="isLoading">
+      </ion-textarea>
+      <ion-button fill="clear" color="primary" (click)="sendMessage()" [disabled]="!userInput.trim() || isLoading">
+        <ion-icon name="send" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

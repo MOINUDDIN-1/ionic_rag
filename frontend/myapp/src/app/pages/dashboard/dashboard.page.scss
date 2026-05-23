@@ -1,0 +1,61 @@
+.dashboard-grid {
+  padding: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card-col {
+  padding: 8px;
+}
+
+.dashboard-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  ion-card-header {
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.card-icon {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.upload-card {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.chat-card {
+  --background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.notes-card {
+  --background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.profile-card {
+  --background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: white;
+}
+
+ion-card-title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+ion-card-content {
+  font-size: 12px;
+  opacity: 0.9;
+}

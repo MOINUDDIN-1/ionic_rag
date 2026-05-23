@@ -1,8 +1,9 @@
 {
-  "name": "myapp",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "name": "StudyMate",
+  "version": "1.0.0",
+  "description": "StudyMate - AI-powered study companion for college students",
+  "author": "StudyMate Team",
+  "homepage": "https://studymate.app/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -60,6 +61,5 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.0"
-  },
-  "description": "An Ionic project"
+  }
 }

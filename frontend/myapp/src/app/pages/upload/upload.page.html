@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Upload Study Materials</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="upload-content">
+  <!-- Upload Section -->
+  <ion-card class="upload-card">
+    <ion-card-header>
+      <ion-card-title>Upload PDF</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="upload-area" (click)="triggerFileInput()">
+        <div *ngIf="!isUploading" class="upload-prompt">
+          <ion-icon name="cloudUploadOutline" class="upload-icon"></ion-icon>
+          <p>Click to upload or drag and drop</p>
+          <small>PDF files only</small>
+        </div>
+        <div *ngIf="isUploading" class="uploading-state">
+          <ion-spinner></ion-spinner>
+          <p>Uploading... {{ uploadProgress }}%</p>
+        </div>
+      </div>
+      <input 
+        type="file" 
+        id="fileInput" 
+        accept=".pdf" 
+        (change)="onFileSelected($event)"
+        style="display: none;">
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Uploaded Files List -->
+  <ion-card class="files-card" *ngIf="pdfList.length > 0">
+    <ion-card-header>
+      <ion-card-title>
+        Uploaded Files 
+        <ion-badge color="primary">{{ pdfList.length }}</ion-badge>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="inset">
+        <ion-item *ngFor="let pdf of pdfList" class="pdf-item">
+          <ion-icon name="documentOutline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>{{ pdf.filename }}</h2>
+            <ion-note>{{ formatFileSize(pdf.size) }} • {{ pdf.uploadedAt }}</ion-note>
+          </ion-label>
+          <ion-button 
+            fill="clear" 
+            color="danger" 
+            slot="end"
+            (click)="deletePDF(pdf.filename)">
+            <ion-icon name="trashOutline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Empty State -->
+  <div *ngIf="pdfList.length === 0 && !isUploading" class="empty-state">
+    <div class="empty-icon">📄</div>
+    <p>No files uploaded yet</p>
+    <small>Upload your study materials to get started</small>
+  </div>
+</ion-content>

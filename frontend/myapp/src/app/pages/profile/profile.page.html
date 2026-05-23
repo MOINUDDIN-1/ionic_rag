@@ -1,0 +1,113 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>Student Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="profile-content">
+  <ion-card class="profile-card">
+    <!-- Avatar -->
+    <div class="profile-avatar">
+      <div class="avatar-circle">{{ getInitials() }}</div>
+    </div>
+
+    <!-- Display Mode -->
+    <ion-card-content *ngIf="!isEditing" class="display-mode">
+      <div class="profile-field">
+        <label>Full Name</label>
+        <p>{{ profile.fullName }}</p>
+      </div>
+      <div class="profile-field">
+        <label>Email</label>
+        <p>{{ profile.email }}</p>
+      </div>
+      <div class="profile-field">
+        <label>Department</label>
+        <p>{{ profile.department }}</p>
+      </div>
+      <div class="profile-field">
+        <label>Semester</label>
+        <p>{{ profile.semester }}</p>
+      </div>
+      <div class="profile-field">
+        <label>College Name</label>
+        <p>{{ profile.collegeName }}</p>
+      </div>
+      <div class="profile-field">
+        <label>Bio</label>
+        <p>{{ profile.bio || 'No bio added' }}</p>
+      </div>
+
+      <div class="button-group">
+        <ion-button expand="block" color="primary" (click)="editProfile()">
+          Edit Profile
+        </ion-button>
+        <ion-button expand="block" fill="outline" (click)="resetProfile()">
+          Reset to Default
+        </ion-button>
+      </div>
+    </ion-card-content>
+
+    <!-- Edit Mode -->
+    <ion-card-content *ngIf="isEditing" class="edit-mode">
+      <ion-item>
+        <ion-label position="stacked">Full Name</ion-label>
+        <ion-input [(ngModel)]="profile.fullName" placeholder="Enter full name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input 
+          [(ngModel)]="profile.email" 
+          type="email"
+          placeholder="Enter email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Department</ion-label>
+        <ion-input 
+          [(ngModel)]="profile.department"
+          placeholder="e.g., Computer Science"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Semester</ion-label>
+        <ion-input 
+          [(ngModel)]="profile.semester"
+          placeholder="e.g., 5th"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">College Name</ion-label>
+        <ion-input 
+          [(ngModel)]="profile.collegeName"
+          placeholder="Enter college name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Bio</ion-label>
+        <ion-input 
+          [(ngModel)]="profile.bio"
+          placeholder="Tell us about yourself"></ion-input>
+      </ion-item>
+
+      <div class="button-group">
+        <ion-button 
+          expand="block" 
+          color="success"
+          (click)="saveProfile()"
+          [disabled]="isSaving">
+          <ion-spinner *ngIf="isSaving" name="dots"></ion-spinner>
+          {{ isSaving ? 'Saving...' : 'Save Changes' }}
+        </ion-button>
+        <ion-button 
+          expand="block" 
+          fill="outline"
+          (click)="cancelEdit()"
+          [disabled]="isSaving">
+          Cancel
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
