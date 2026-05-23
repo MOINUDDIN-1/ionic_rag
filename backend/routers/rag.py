@@ -13,6 +13,7 @@ from schemas.rag import (
 from services.vectorstore_service import (
     create_faiss_index,
     similarity_search,
+    load_faiss_index,
 )
 
 from config.settings import yaml_settings
@@ -79,3 +80,34 @@ async def rag_search(request: RAGSearchRequest):
 
     except Exception as error:
         raise HTTPException(status_code=500, detail=str(error))
+
+
+@router.get("/documents")
+async def rag_documents():
+
+    vectorstore = load_faiss_index()
+
+    rag_chunks = []
+
+    unique_files = set()
+
+    for doc_id, document in vectorstore.docstore._dict.items():
+        filename = document.metadata.get("filename")
+
+        if filename:
+            unique_files.add(filename)
+
+        rag_chunks.append(
+            {
+                "id": doc_id,
+                "filename": filename,
+                "content_preview": document.page_content[:200],
+            }
+        )
+
+    return {
+        "files": sorted(list(unique_files)),
+        "files_count": len(unique_files),
+        "chunks_count": len(rag_chunks),
+        "chunks": rag_chunks,
+    }

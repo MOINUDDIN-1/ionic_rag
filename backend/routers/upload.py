@@ -66,15 +66,6 @@ async def uploaded_documents():
     )
 
 
-@router.delete("", response_model=DeleteDocumentsResponse)
-async def delete_documents(request: DeleteDocumentsRequest):
-    deleted_files, failed_files = delete_uploaded_documents(request.filenames)
-
-    return DeleteDocumentsResponse(
-        deleted_files=deleted_files, failed_files=failed_files
-    )
-
-
 @router.delete("/all")
 async def delete_all_documents():
     deleted_files = delete_all_uploaded_documents()
@@ -83,3 +74,31 @@ async def delete_all_documents():
         "deleted_files": deleted_files,
         "message": "All documents deleted successfully",
     }
+
+
+@router.delete("/{filename}")
+async def delete_document(
+    filename: str,
+):
+
+    deleted_files, failed_files = delete_uploaded_documents([filename])
+
+    if failed_files:
+        raise HTTPException(
+            status_code=404,
+            detail=f"{filename} not found",
+        )
+
+    return {
+        "deleted_file": filename,
+        "message": "Document deleted successfully",
+    }
+
+
+@router.delete("", response_model=DeleteDocumentsResponse)
+async def delete_documents(request: DeleteDocumentsRequest):
+    deleted_files, failed_files = delete_uploaded_documents(request.filenames)
+
+    return DeleteDocumentsResponse(
+        deleted_files=deleted_files, failed_files=failed_files
+    )

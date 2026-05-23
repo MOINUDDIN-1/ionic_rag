@@ -1,0 +1,351 @@
+.documents-page {
+
+    --background: linear-gradient(180deg,
+            #020617 0%,
+            #0f172a 100%);
+
+    color: white;
+}
+
+
+.toolbar {
+
+    --background: rgba(15, 23, 42, 0.95);
+
+    --color: white;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+.page-container {
+
+    padding: 24px;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+}
+
+
+.hero-section {
+
+    margin-bottom: 32px;
+
+    h1 {
+
+        font-size: 40px;
+
+        font-weight: 800;
+
+        margin-bottom: 8px;
+    }
+
+    p {
+
+        color: #94a3b8;
+
+        font-size: 16px;
+    }
+}
+
+
+.grid-layout {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,
+            minmax(340px, 1fr));
+
+    gap: 24px;
+
+    margin-bottom: 24px;
+}
+
+
+.glass-card {
+
+    background: rgba(15, 23, 42, 0.75);
+
+    backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+    h2 {
+
+        font-size: 22px;
+
+        font-weight: 700;
+    }
+
+    span {
+
+        color: #94a3b8;
+    }
+}
+
+
+.upload-box {
+
+    min-height: 220px;
+
+    border: 2px dashed rgba(255, 255, 255, 0.12);
+
+    border-radius: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    margin-bottom: 20px;
+
+    &:hover {
+
+        border-color: #3b82f6;
+
+        background: rgba(59, 130, 246, 0.08);
+    }
+
+    ion-icon {
+
+        font-size: 52px;
+
+        margin-bottom: 12px;
+
+        color: #60a5fa;
+    }
+
+    h3 {
+
+        font-size: 20px;
+
+        margin-bottom: 6px;
+    }
+
+    p {
+
+        color: #94a3b8;
+    }
+}
+
+
+.selected-files {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+}
+
+
+.file-chip {
+
+    background: rgba(59, 130, 246, 0.15);
+
+    border: 1px solid rgba(59, 130, 246, 0.3);
+
+    padding: 8px 14px;
+
+    border-radius: 999px;
+
+    font-size: 14px;
+}
+
+
+.primary-btn,
+.action-btn {
+
+    margin-top: 12px;
+
+    height: 52px;
+
+    font-weight: 700;
+}
+
+
+.status-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 16px;
+
+    margin-bottom: 24px;
+}
+
+
+.status-item {
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border-radius: 16px;
+
+    padding: 16px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    span {
+
+        color: #94a3b8;
+    }
+
+    strong {
+
+        font-size: 16px;
+    }
+}
+
+
+.documents-card {
+
+    margin-top: 12px;
+}
+
+
+.loading-wrapper,
+.empty-state {
+
+    min-height: 220px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #94a3b8;
+
+    ion-icon {
+
+        font-size: 56px;
+
+        margin-bottom: 12px;
+    }
+}
+
+
+.document-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+
+.document-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px solid rgba(255, 255, 255, 0.06);
+
+    transition: all 0.2s ease;
+
+    &:hover {
+
+        transform: translateY(-2px);
+
+        background: rgba(255, 255, 255, 0.06);
+    }
+}
+
+
+.document-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    ion-icon {
+
+        font-size: 24px;
+
+        color: #60a5fa;
+    }
+
+    span {
+
+        font-size: 15px;
+
+        word-break: break-word;
+    }
+}
+
+.alert {
+
+    padding: 16px 20px;
+
+    border-radius: 16px;
+
+    margin-bottom: 20px;
+
+    font-weight: 600;
+}
+
+
+.error-alert {
+
+    background: rgba(239, 68, 68, 0.15);
+
+    border: 1px solid rgba(239, 68, 68, 0.35);
+
+    color: #fca5a5;
+}
+
+
+.success-alert {
+
+    background: rgba(34, 197, 94, 0.15);
+
+    border: 1px solid rgba(34, 197, 94, 0.35);
+
+    color: #86efac;
+}

@@ -1,0 +1,273 @@
+<ion-header>
+
+    <ion-toolbar class="toolbar">
+
+        <ion-title>
+            Documents
+        </ion-title>
+
+        <ion-buttons slot="end">
+
+            <ion-button (click)="openChatbot()">
+                <ion-icon name="chatbubble-ellipses-outline">
+                </ion-icon>
+            </ion-button>
+
+            <ion-button color="danger" (click)="logout()">
+                <ion-icon name="log-out-outline">
+                </ion-icon>
+            </ion-button>
+
+        </ion-buttons>
+
+    </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="documents-page">
+
+    <div class="page-container">
+
+        <div class="backend-error" *ngIf="!backendConnected">
+
+            <ion-card class="glass-card">
+
+                <ion-card-content>
+
+                    <div class="backend-error-content">
+
+                        <ion-icon name="refresh-outline">
+                        </ion-icon>
+
+                        <h2>
+                            Backend Offline
+                        </h2>
+
+                        <p>
+                            Unable to connect to backend server.
+                        </p>
+
+                        <ion-button (click)="refreshBackend()">
+                            Refresh Connection
+                        </ion-button>
+
+                    </div>
+
+                </ion-card-content>
+
+            </ion-card>
+
+        </div>
+
+
+        <div *ngIf="backendConnected">
+
+            <div class="hero-section">
+
+                <h1>
+                    Manage Your Documents
+                </h1>
+
+                <p>
+                    Upload files, rebuild indexes,
+                    and manage your RAG system.
+                </p>
+
+            </div>
+
+
+            <div class="grid-layout">
+
+                <ion-card class="glass-card">
+
+                    <ion-card-content>
+
+                        <div class="section-header">
+                            <h2>Upload Documents</h2>
+                        </div>
+
+                        <label class="upload-box">
+
+                            <input type="file" multiple hidden (change)="onFilesSelected($event)" />
+
+                            <ion-icon name="cloud-upload-outline">
+                            </ion-icon>
+
+                            <h3>
+                                Select Files
+                            </h3>
+
+                            <p>
+                                PDF, DOCX, TXT, MD
+                            </p>
+
+                        </label>
+
+
+                        <div class="selected-files" *ngIf="selectedFiles.length">
+
+                            <div class="file-chip" *ngFor="let file of selectedFiles">
+                                {{ file.name }}
+                            </div>
+
+                        </div>
+
+
+                        <ion-button expand="block" class="primary-btn" [disabled]="!selectedFiles.length || isUploading"
+                            (click)="uploadDocuments()">
+
+                            <ion-spinner *ngIf="isUploading" name="crescent">
+                            </ion-spinner>
+
+                            <span *ngIf="!isUploading">
+                                Upload Documents
+                            </span>
+
+                        </ion-button>
+
+                    </ion-card-content>
+
+                </ion-card>
+
+
+                <ion-card class="glass-card">
+
+                    <ion-card-content>
+
+                        <div class="section-header">
+                            <h2>RAG Status</h2>
+                        </div>
+
+                        <div class="status-grid" *ngIf="status">
+
+                            <div class="status-item">
+                                <span>Status</span>
+
+                                <strong>
+                                    {{ status.status }}
+                                </strong>
+                            </div>
+
+                            <div class="status-item">
+                                <span>Documents</span>
+
+                                <strong>
+                                    {{ status.documents_count }}
+                                </strong>
+                            </div>
+
+                            <div class="status-item">
+                                <span>Index</span>
+
+                                <strong>
+                                    {{ status.index_exists ? 'Ready' : 'Missing' }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <ion-button expand="block" color="warning" class="action-btn" [disabled]="isReindexing"
+                            (click)="rebuildIndex()">
+
+                            <ion-spinner *ngIf="isReindexing" name="crescent">
+                            </ion-spinner>
+
+                            <span *ngIf="!isReindexing">
+                                Rebuild Index
+                            </span>
+
+                        </ion-button>
+
+
+                        <ion-button expand="block" color="danger" fill="outline" class="action-btn"
+                            (click)="deleteAllDocuments()">
+                            Delete All Documents
+                        </ion-button>
+
+                    </ion-card-content>
+
+                </ion-card>
+
+            </div>
+
+
+            <ion-card class="glass-card documents-card">
+
+                <ion-card-content>
+
+                    <div class="section-header">
+
+                        <h2>
+                            Uploaded Documents
+                        </h2>
+
+                        <span>
+                            {{ documents.length }} Files
+                        </span>
+
+                    </div>
+
+
+                    <div class="loading-wrapper" *ngIf="isLoading">
+                        <ion-spinner>
+                        </ion-spinner>
+                    </div>
+
+
+                    <div class="empty-state" *ngIf="!isLoading && !documents.length">
+
+                        <ion-icon name="document-outline">
+                        </ion-icon>
+
+                        <p>
+                            No documents uploaded yet.
+                        </p>
+
+                    </div>
+
+
+                    <div class="document-list" *ngIf="documents.length">
+
+                        <div class="document-item" *ngFor="let document of documents">
+
+                            <div class="document-info">
+
+                                <ion-icon name="document-outline">
+                                </ion-icon>
+
+                                <span>
+                                    {{ document.filename }}
+                                </span>
+
+                            </div>
+
+
+                            <ion-button fill="clear" color="danger" (click)="deleteDocument(document.filename)">
+                                <ion-icon name="trash-outline">
+                                </ion-icon>
+                            </ion-button>
+
+                        </div>
+
+                    </div>
+
+                </ion-card-content>
+
+            </ion-card>
+
+        </div>
+
+        <div class="alert error-alert" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+
+
+        <div class="alert success-alert" *ngIf="successMessage">
+            {{ successMessage }}
+        </div>
+
+    </div>
+
+</ion-content>

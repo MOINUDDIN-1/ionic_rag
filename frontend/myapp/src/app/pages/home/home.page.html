@@ -1,0 +1,40 @@
+<ion-content class="home-page">
+
+    <div class="container">
+
+        <div class="header">
+
+            <div>
+
+                <h1>
+                    Ionic RAG Chatbot
+                </h1>
+
+                <p>
+                    Welcome,
+                    {{ userName }}
+                </p>
+
+            </div>
+
+            <ion-button color="danger" (click)="logout()">
+                Logout
+            </ion-button>
+
+        </div>
+
+        <div class="actions">
+
+            <ion-button expand="block" size="large" (click)="openDocuments()">
+                Manage Documents
+            </ion-button>
+
+            <ion-button expand="block" size="large" (click)="openChatbot()">
+                Open Chatbot
+            </ion-button>
+
+        </div>
+
+    </div>
+
+</ion-content>
