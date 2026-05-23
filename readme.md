@@ -2,13 +2,13 @@
 
 A modern mobile-first Retrieval-Augmented Generation (RAG) chatbot platform built using:
 
-* [Ionic Framework](https://ionicframework.com<ion-content class="messages-content">)
-* [Angular](https://angular.dev<ion-content class="messages-content">)
-* [Capacitor](https://capacitorjs.com<ion-content class="messages-content">)
-* [FastAPI](https://fastapi.tiangolo.com<ion-content class="messages-content">)
-* [LangChain](https://www.langchain.com<ion-content class="messages-content">)
-* [Groq](https://groq.com<ion-content class="messages-content">)
-* [FAISS](https://github.com/facebookresearch/faiss<ion-content class="messages-content">)
+* [Ionic Framework](https://ionicframework.com)
+* [Angular](https://angular.dev)
+* [Capacitor](https://capacitorjs.com)
+* [FastAPI](https://fastapi.tiangolo.com)
+* [LangChain](https://www.langchain.com)
+* [Groq](https://groq.com)
+* [FAISS](https://github.com/facebookresearch/faiss)
 
 This project provides a complete AI assistant platform with:
 
@@ -90,9 +90,9 @@ This project provides a complete AI assistant platform with:
 
 ## Frontend
 
-* [Ionic Angular](https://ionicframework.com<ion-content class="messages-content">)
-* [Angular Standalone Components](https://angular.dev/guide/standalone-components<ion-content class="messages-content">)
-* [Capacitor](https://capacitorjs.com<ion-content class="messages-content">)
+* [Ionic Angular](https://ionicframework.com)
+* [Angular Standalone Components](https://angular.dev/guide/standalone-components)
+* [Capacitor](https://capacitorjs.com)
 * TypeScript
 * SCSS
 * RxJS
@@ -101,9 +101,9 @@ This project provides a complete AI assistant platform with:
 
 ## Backend
 
-* [FastAPI](https://fastapi.tiangolo.com<ion-content class="messages-content">)
-* [LangChain](https://www.langchain.com<ion-content class="messages-content">)
-* [Groq](https://groq.com<ion-content class="messages-content">)
+* [FastAPI](https://fastapi.tiangolo.com)
+* [LangChain](https://www.langchain.com)
+* [Groq](https://groq.com)
 * SQLite
 * SQLAlchemy Async
 * FAISS
