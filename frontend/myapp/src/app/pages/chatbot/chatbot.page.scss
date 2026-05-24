@@ -86,13 +86,22 @@ ion-menu::part(backdrop) {
 
 
 .conversation-title {
-    color: white;
+    color: black !important;
 
     font-size: 14px;
 
-    font-weight: 500;
+    font-weight: 600;
+
+    display: block;
+
+    opacity: 1;
 }
 
+ion-item {
+    --color: black;
+
+    --background: transparent;
+}
 
 .conversation-preview {
     opacity: 0.6;

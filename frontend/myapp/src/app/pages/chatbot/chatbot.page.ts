@@ -16,9 +16,16 @@ import {
 } from 'rxjs';
 
 import {
+  VoiceRecorder,
+} from 'capacitor-voice-recorder';
+
+import {
   addIcons,
 } from 'ionicons';
 
+import {
+  Capacitor,
+} from '@capacitor/core';
 import {
   menuOutline,
   addOutline,
@@ -289,52 +296,57 @@ export class ChatbotPage implements OnInit {
         },
       });
   }
-
-
   async toggleRecording(): Promise<void> {
 
     if (this.isRecording) {
 
-      this.mediaRecorder.stop();
+      const result =
+        await VoiceRecorder.stopRecording();
 
       this.isRecording = false;
 
-      return;
-    }
+      if (
+        !result.value?.recordDataBase64
+      ) {
+        return;
+      }
 
-    const stream =
-      await navigator.mediaDevices.getUserMedia({
-        audio: true,
-      });
+      const base64 =
+        result.value.recordDataBase64;
 
-    this.audioChunks = [];
+      const byteCharacters =
+        atob(base64);
 
-    this.mediaRecorder =
-      new MediaRecorder(stream);
+      const byteNumbers =
+        new Array(
+          byteCharacters.length,
+        );
 
-    this.mediaRecorder.ondataavailable = (
-      event,
-    ) => {
+      for (
+        let i = 0;
+        i < byteCharacters.length;
+        i++
+      ) {
 
-      this.audioChunks.push(
-        event.data,
-      );
-    };
+        byteNumbers[i] =
+          byteCharacters.charCodeAt(i);
+      }
 
-    this.mediaRecorder.onstop = () => {
+      const byteArray =
+        new Uint8Array(byteNumbers);
 
-      const audioBlob = new Blob(
-        this.audioChunks,
-        {
-          type: 'audio/webm',
-        },
-      );
+      const audioBlob =
+        new Blob(
+          [byteArray],
+          {
+            type: 'audio/aac',
+          },
+        );
 
       this.isSpeechProcessing = true;
 
       this.chatService
         .speechToText(audioBlob)
-
         .subscribe({
 
           next: async (response) => {
@@ -354,10 +366,29 @@ export class ChatbotPage implements OnInit {
 
             this.isSpeechProcessing = false;
           },
-        });
-    };
 
-    this.mediaRecorder.start();
+          error: () => {
+
+            this.isSpeechProcessing = false;
+          },
+        });
+
+      return;
+    }
+
+    const permission =
+      await VoiceRecorder.requestAudioRecordingPermission();
+
+    if (!permission.value) {
+
+      alert(
+        'Microphone permission denied',
+      );
+
+      return;
+    }
+
+    await VoiceRecorder.startRecording();
 
     this.isRecording = true;
   }
